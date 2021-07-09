@@ -51,6 +51,7 @@ def apply_transforms_custom_resnet(mean, std):
     """
     train_transforms = A.Compose(
         [
+            # RandomCop with Padding
             A.Sequential(
                 [
                     A.PadIfNeeded(min_height=40, min_width=40, always_apply=True),
@@ -58,7 +59,9 @@ def apply_transforms_custom_resnet(mean, std):
                 ],
                 p=1,
             ),
+            # Horizontal Flipping
             A.HorizontalFlip(p=1),
+            # Cutout
             A.CoarseDropout(
                 max_holes=3,
                 max_height=8,

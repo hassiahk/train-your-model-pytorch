@@ -35,12 +35,14 @@ class CustomResNetClass(nn.Module):
     def __init__(self, block, norm_type, num_classes=10):
         super().__init__()
 
+        # Prep Layer
         self.prep = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=64, kernel_size=3, padding=1, stride=1),  # RF: 3x3
             nn.ReLU(),
             nn.BatchNorm2d(64),
         )
 
+        # Conv Block
         self.conv_layer_1 = nn.Sequential(
             nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1, stride=1),  # RF: 3x3
             nn.MaxPool2d(2, 2),
@@ -48,8 +50,10 @@ class CustomResNetClass(nn.Module):
             nn.ReLU(),
         )
 
-        self.resblock_1 = block(128, 128, norm_type="BN")
+        # ResNet Block
+        self.resblock_1 = block(128, 128, norm_type=norm_type)
 
+        # Conv Block
         self.conv_layer_2 = nn.Sequential(
             nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, padding=1, stride=1),
             nn.MaxPool2d(2, 2),
@@ -57,6 +61,7 @@ class CustomResNetClass(nn.Module):
             nn.ReLU(),
         )
 
+        # Conv Block
         self.conv_layer_3 = nn.Sequential(
             nn.Conv2d(in_channels=256, out_channels=512, kernel_size=3, padding=1, stride=1),
             nn.MaxPool2d(2, 2),
@@ -64,9 +69,14 @@ class CustomResNetClass(nn.Module):
             nn.ReLU(),
         )
 
-        self.resblock_2 = block(512, 512, norm_type="BN")
+        # ResNet Block
+        self.resblock_2 = block(512, 512, norm_type=norm_type)
+
+        # MaxPooling with Kernel Size 4
         self.pooling = nn.MaxPool2d(4, 4)
-        self.fc1 = nn.Linear(512, 10)
+
+        # Fully Connected Layer
+        self.fc1 = nn.Linear(512, num_classes)
 
     def forward(self, x):
         """
@@ -77,18 +87,16 @@ class CustomResNetClass(nn.Module):
 
         res_out_1 = self.resblock_1(out)
 
+        # Residual Block
         out = out + res_out_1
-
         out = self.conv_layer_2(out)
-
         out = self.conv_layer_3(out)
 
         res_out_2 = self.resblock_2(out)
 
+        # Residual Block
         out = out + res_out_2
-
         out = self.pooling(out)
-
         out = out.view(out.size(0), -1)
         out = self.fc1(out)
         return out
