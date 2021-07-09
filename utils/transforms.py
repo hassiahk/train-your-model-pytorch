@@ -51,7 +51,7 @@ def apply_transforms_custom_resnet(mean, std):
     """
     train_transforms = A.Compose(
         [
-            # RandomCop with Padding
+            # RandomCrop with Padding
             A.Sequential(
                 [
                     A.PadIfNeeded(min_height=40, min_width=40, always_apply=True),
