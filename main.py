@@ -4,7 +4,7 @@ from utils.test import test
 from utils.train import train
 
 
-def trainer(model, epochs, device, train_loader, test_loader, optimizer, criterion, l1_factor, max_lr, max_epoch):
+def trainer(model, epochs, device, train_loader, test_loader, optimizer, criterion, l1_factor, max_lr, max_epoch=None):
     """
     Train and evaluate for given epochs.
     """
@@ -14,13 +14,20 @@ def trainer(model, epochs, device, train_loader, test_loader, optimizer, criteri
     test_accuracy = []
     lrs = []
 
+    if max_epoch is None:
+        div_factor = 25
+        pct_start = 0.3
+    else:
+        div_factor = 8
+        pct_start = max_epoch / epochs
+
     scheduler = OneCycleLR(
         optimizer,
         max_lr=max_lr,
         epochs=epochs,
         steps_per_epoch=len(train_loader),
-        div_factor=8,
-        pct_start=max_epoch / epochs,
+        div_factor=div_factor,
+        pct_start=pct_start,
     )
 
     for epoch in range(1, epochs + 1):
