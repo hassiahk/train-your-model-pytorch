@@ -85,3 +85,6 @@ def calculate_mean_std(dataset):
         mean = train_set.data.mean(axis=(0, 1, 2)) / 255
         std = train_set.data.std(axis=(0, 1, 2)) / 255
         return mean, std
+
+    if dataset == "TinyImageNet":
+        return ((0.4802, 0.4481, 0.3975), (0.2302, 0.2265, 0.2262))
