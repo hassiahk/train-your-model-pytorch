@@ -106,14 +106,16 @@ def apply_transforms_tiny_imagenet(mean, std):
             ),
             # Horizontal Flipping
             A.HorizontalFlip(p=0.5),
+            # Rotate +- 5 degrees
+            A.Rotate(limit=5),
             # Cutout
             A.CoarseDropout(
-                max_holes=1,
-                max_height=16,
-                max_width=16,
+                max_holes=2,
+                max_height=32,
+                max_width=32,
                 min_holes=1,
-                min_height=16,
-                min_width=16,
+                min_height=32,
+                min_width=32,
                 fill_value=tuple((x * 255.0 for x in mean)),
                 p=0.8,
             ),
