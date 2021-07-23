@@ -68,7 +68,7 @@ def plot_metrics(exp_metrics):
     plt.show()
 
 
-def misclassified_images(model, test_loader, device):
+def misclassified_images(model, test_loader, device, class_names):
     """
     Get misclassified images.
     """
@@ -90,7 +90,7 @@ def misclassified_images(model, test_loader, device):
             wrong_predictions = list(zip(torch.cat(wrong_images), torch.cat(wrong_label), torch.cat(correct_label)))
         print(f"Total wrong predictions are {len(wrong_predictions)}")
 
-        plot_misclassified_images(wrong_predictions)
+        plot_misclassified_images(wrong_predictions, class_names=class_names)
 
     return wrong_predictions
 
