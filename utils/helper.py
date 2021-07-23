@@ -77,7 +77,7 @@ def unnormalize(img):
 
 def calculate_mean_std(dataset):
     """
-    Calculate mean and std for CIFAR10.
+    Calculate mean and std for a dataset.
     """
     if dataset == "CIFAR10":
         train_transform = T.ToTensor()
