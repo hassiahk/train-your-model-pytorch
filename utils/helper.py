@@ -57,7 +57,7 @@ def class_level_accuracy(model, loader, device, classes):
                 class_correct[label] += correct[i].item()
                 class_total[label] += 1
 
-    for i in range(10):
+    for i in range(len(classes)):
         print("Accuracy of %5s : %2d %%" % (classes[i], 100 * class_correct[i] / class_total[i]))
 
 
