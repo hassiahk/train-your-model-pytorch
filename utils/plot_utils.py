@@ -103,7 +103,7 @@ def plot_misclassified_images(wrong_predictions, n_images=20, class_names=None):
         class_names = ["airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"]
     fig = plt.figure(figsize=(10, 12))
     fig.tight_layout()
-    mean, std = helper.calculate_mean_std("CIFAR10")
+    mean, std = helper.calculate_mean_std("TinyImageNet")
     for i, (img, pred, correct) in enumerate(wrong_predictions[:n_images]):
         img, pred, target = img.cpu().numpy().astype(dtype=np.float32), pred.cpu(), correct.cpu()
         for j in range(img.shape[0]):
