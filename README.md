@@ -2,13 +2,13 @@
 Model Training in PyTorch
 
 ## Includes
-- `[models](models)` for training on CIFAR-10 and Tiny ImageNet.
+- [models](models) for training on CIFAR-10 and Tiny ImageNet.
   - [ResNet for CIFAR-10](models/resnet.py)
   - [Custom ResNet for CIFAR-10](models/custom_resnet.py)
   - [ResNet18 for Tiny ImageNet](models/resnet18.py)
-- `[GradCAM](utils/grad_cam.py)` for seeing the features of model at each layer.
-- `[transforms](utils/transforms.py)` for various augmentation strategies.
-- `[LR Finder](utils/lr_finder.py)` for finding the best learning rate.
+- [GradCAM](utils/grad_cam.py) for seeing the features of model at each layer.
+- [transforms](utils/transforms.py) for various augmentation strategies.
+- [LR Finder](utils/lr_finder.py) for finding the best learning rate.
 - Some [general helper functions](utils/helper.py)
   - `model_summary` - Summary of the model.
   - `get_default_device` - To get the device. Pick GPU if available, else CPU.
@@ -21,7 +21,7 @@ Model Training in PyTorch
   - `plot_metrics` - Plot Train and Test Accuracy and Loss.
   - `misclassified_images` - Get misclassified images.
   - `plot_misclassified_images` - Plot the misclassified images.
-- And finally `[trainer](main.py)` to train a model on a given dataset.
+- And finally [trainer](main.py) to train a model on a given dataset.
 
 ## Folder Structure
 ```bash
