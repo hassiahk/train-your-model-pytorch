@@ -31,7 +31,9 @@ class TinyImageNet(Dataset):
         self.image_paths = []
         self.targets = []
 
-        _, class_id = self.classes()
+        idx_to_class, class_id = self.get_classes()
+
+        self.classes = list(idx_to_class.values())
 
         # train images
         train_path = os.path.join(self.root, self.data_dir, "train")
@@ -59,7 +61,7 @@ class TinyImageNet(Dataset):
         split_idx = int(len(self.indices) * train_split)
         self.indices = self.indices[:split_idx] if train else self.indices[split_idx:]
 
-    def classes(self):
+    def get_classes(self):
         """
         Get class labels mapping
         """
@@ -68,16 +70,16 @@ class TinyImageNet(Dataset):
         for i, line in enumerate(open(os.path.join(self.root, "tiny-imagenet-200/wnids.txt"), "r")):
             id_dict[line.replace("\n", "")] = i
 
-        result = {}
+        idx_to_class = {}
         class_id = {}
         for i, line in enumerate(open(os.path.join(self.root, "tiny-imagenet-200/words.txt"), "r")):
             n_id, word = line.split("\t")[:2]
             all_classes[n_id] = word
         for key, value in id_dict.items():
-            result[value] = all_classes[key].replace("\n", "").split(",")[0]
+            idx_to_class[value] = all_classes[key].replace("\n", "").split(",")[0]
             class_id[key] = (value, all_classes[key])
 
-        return result, class_id
+        return idx_to_class, class_id
 
     def _check_integrity(self) -> bool:
         """
