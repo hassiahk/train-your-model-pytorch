@@ -21,7 +21,7 @@ Model Training in PyTorch
   - `plot_metrics` - Plot Train and Test Accuracy and Loss.
   - `misclassified_images` - Get misclassified images.
   - `plot_misclassified_images` - Plot the misclassified images.
-- And finally [trainer](main.py) to train a model on a given dataset.
+- And finally [trainer](main.py) to train and evaluate a model on a given dataset.
 
 ## Folder Structure
 ```bash
