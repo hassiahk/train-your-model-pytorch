@@ -75,7 +75,7 @@ class GradCAM:
         if target_layer in pool.keys():
             return pool[target_layer]
         else:
-            raise ValueError("Invalid layer name: {}".format(target_layer))
+            raise ValueError(f"Invalid layer name: {target_layer}")
 
     def generate(self, target_layer):
         """
@@ -135,7 +135,7 @@ def plot_gradcam(gcam_layers, target_layers, class_names, image_size, predicted,
     """
     images = []
     labels = []
-    for i, (img, _, correct) in enumerate(misclassified_images):
+    for img, _, correct in misclassified_images:
         images.append(img)
         labels.append(correct)
 
