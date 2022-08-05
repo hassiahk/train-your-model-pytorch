@@ -42,8 +42,8 @@ def class_level_accuracy(model, loader, device, classes):
     """
     Accuracy per class level.
     """
-    class_correct = list(0.0 for i in range(len(classes)))
-    class_total = list(0.0 for i in range(len(classes)))
+    class_correct = [0.0 for _ in range(len(classes))]
+    class_total = [0.0 for _ in range(len(classes))]
 
     with torch.no_grad():
         for _, (images, labels) in enumerate(loader, 0):

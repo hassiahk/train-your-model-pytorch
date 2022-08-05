@@ -65,14 +65,17 @@ class TinyImageNet(Dataset):
         """
         Get class labels mapping
         """
-        id_dict = {}
         all_classes = {}
-        for i, line in enumerate(open(os.path.join(self.root, "tiny-imagenet-200/wnids.txt"), "r")):
-            id_dict[line.replace("\n", "")] = i
+        id_dict = {
+            line.replace("\n", ""): i
+            for i, line in enumerate(
+                open(os.path.join(self.root, "tiny-imagenet-200/wnids.txt"), "r")
+            )
+        }
 
         idx_to_class = {}
         class_id = {}
-        for i, line in enumerate(open(os.path.join(self.root, "tiny-imagenet-200/words.txt"), "r")):
+        for line in open(os.path.join(self.root, "tiny-imagenet-200/words.txt"), "r"):
             n_id, word = line.split("\t")[:2]
             all_classes[n_id] = word
         for key, value in id_dict.items():
